@@ -15,7 +15,7 @@ void readimage(FILE *heps, int (*image)[maxcols], int *rows, int *cols) {
             (*rows)++;
             *cols = 0;
         } else if (next >= '0' && next <= '4') {
-            image[*rows][*cols] = next - '0';
+            image[*rows][*cols] = next-'0';
             (*cols)++;
         }
    		 }
