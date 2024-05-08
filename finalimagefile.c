@@ -1,4 +1,4 @@
-//Author Eli Biggs
+//Author Eli Biggs & Grace Bottoms
 #include <stdio.h>
 
 #define maxrows 200
@@ -17,12 +17,24 @@ void displayimage(int (*image)[maxcols], int rows, int cols)
 	}
 }
 
-void dimimage(int (*image)[maxcols], int rows, int cols)
-{
+void dimimage(int (*image)[maxcols], int rows, int cols) {
+	for (int i = 0; i < rows; i++) {
+		for (int k = 0; k < cols; k++) {
+				if(image[i][k]>0) {
+					image[i][k]--;
+				}
+			}
+	}
 }
 
-void brightenimage(int (*image)[maxcols], int rows, int cols)
-{
+void brightenimage(int (*image)[maxcols], int rows, int cols){
+	for (int i = 0; i < rows; i++) {
+		for (int k = 0; k < cols; k++) {
+				if(image[i][k]<4) {
+					image[i][k]++;
+				}
+			}
+	}
 }
 
 void cropimage(int (*image)[maxcols], int *rows, int *cols)
@@ -141,8 +153,10 @@ int main() {
 				do {
 					printf("Editing Menu:\n");
 					printf("1. Crop\n");
-					printf("2. Save image to file\n");                //change this when adding more 
-					printf("3. Back to Menu\n");                      // options like dim
+					printf("2. Brighten image\n");
+					printf("3. Dim image\n");
+					printf("4. Save image to file\n");
+					printf("5. Back to Menu\n");
 					printf("Enter choice: ");
 					fflush(stdin);
 					scanf("%d", &choice2);
@@ -150,12 +164,28 @@ int main() {
 					switch (choice2) {
 						case 1: 
 							cropimage(image, &rows, &cols);
-							iseditted = 1;                                   
+							iseditted=1;                                   
 							printf("Image cropped:\n");
 							displayimage(image, rows, cols);
 							break;
-
+							
 						case 2:
+							
+							brightenimage(image, rows, cols);
+							iseditted=1;
+							printf("Brightened Image:\n");
+							displayimage(image, rows, cols);
+							break;
+							
+						case 3:
+							
+							dimimage(image, rows, cols);
+							iseditted=1;
+							printf("Dimmed Image:\n");
+							displayimage(image, rows, cols);
+							break;
+	
+						case 4:
 							if(iseditted) {
 								printf("Enter the file name to save: ");
 								scanf("%s", newfile);
@@ -171,7 +201,7 @@ int main() {
 							   	printf("Edit the image first.\n");
 
 							break;
-						case 3:                                     
+						case 5:                                     
 						break; 							
 						default:
 							printf("Invalid choice!\n");
@@ -179,10 +209,10 @@ int main() {
 
 					}	
 
-				} while (choice2 != 3);
+				} while (choice2 != 5);
 				break;
 
-			case 4:
+			case 5:
 				return 0;
 
 			default:
