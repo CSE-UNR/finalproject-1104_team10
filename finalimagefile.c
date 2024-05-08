@@ -10,10 +10,31 @@ void displayimage(int (*image)[maxcols], int rows, int cols)
 	printf("Displayed image: Rows %d,Cols %d,\n", rows, cols);
 	printf(" \n");
 	for (int i = 0; i < rows; i++) {
-		for (int k = 0; k < cols; k++)
-			printf("%d", image[i][k]);
-
+		for (int k = 0; k < cols; k++){
+		
+		char printChar;
+		switch(image[i][k]){
+		case 4:
+			printChar = '0';
+			break;
+		case 3:
+			printChar = 'O';
+			break;
+		case 2:
+			printChar = 'o';
+			break;
+		case 1: 
+			printChar = '.';
+			break;
+		case 0:
+			printChar = ' ';
+			break;
+		
+			}
+			printf("%c", printChar);
+		}	
 		printf("\n");
+	
 	}
 }
 
